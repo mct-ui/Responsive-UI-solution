@@ -42,11 +42,20 @@ $color-text-lighter: $oc-gray-6;
 $color-primary: $oc-indigo-6;
 $color-primary-light: $oc-indigo-5;
 $color-primary-lighter: $oc-indigo-4;
+$color-primary-lightest: $oc-indigo-1;
 $color-primary-dark: $oc-indigo-7;
 
 $color-border: $oc-gray-3;
 $color-border-light: $oc-gray-2;
 $color-border-dark: $oc-gray-4;
+
+$color-succes: $oc-green-5;
+$color-succes-light: $oc-green-4;
+$color-succes-lighter: $oc-green-3;
+$color-succes-lightest: $oc-green-1;
+$color-succes-dark: $oc-green-6;
+$color-succes-darker: $oc-green-7;
+$color-succes-darkest: $oc-green-8;
 
 // ---
 // Settings: radii
@@ -117,7 +126,7 @@ $breakpoints: (
 // Grid
 // ---
 
-$container-max-width: calc(1228 / $root-font-size * 1rem);
+$container-max-width: calc(1224 / $root-font-size * 1rem);
 
 // The gutter between columns
 $grid-gutter: $space-m;
@@ -191,7 +200,7 @@ html {
   font-family: $font-family-primary; // global font-family
   color: $color-text-light; // global text color
   scroll-behavior: smooth; // smooth scrolling
-  background-color: $oc-gray-1;
+  background-color: $oc-gray-0;
 }
 
 /*
@@ -213,7 +222,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+strong {
   color: $color-text;
   font-weight: 600;
 }
@@ -225,13 +235,13 @@ h1 {
 }
 
 h2 {
-  font-size: $ms3;
+  font-size: $ms2;
   line-height: calc($baseline * 3);
   margin-bottom: $space-m;
 }
 
 h3 {
-  font-size: $ms1;
+  font-size: $ms0;
   line-height: calc($baseline * 3);
   margin-bottom: $space-m;
 }
@@ -314,8 +324,7 @@ a:active {
 
 .o-list-reset {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin-left: 0;
 }
 
 /*
@@ -380,6 +389,13 @@ a:active {
   @include mq(bp2) {
     padding: $space-xl $space-m $space-m;
   }
+}
+
+.o-row--header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /*
@@ -537,7 +553,6 @@ a:active {
 */
 
 .c-logo {
-  display: inline-block;
   margin-bottom: 0;
 }
 
@@ -569,16 +584,29 @@ a:active {
   gap: $space-l;
 }
 
+.c-header__user {
+  margin-left: auto;
+  height: calc($baseline * 4);
+  border-radius: 100%;
+}
+
 /*
   Components: Nav
   ---
   The nav component is used to display the navigation of the site
 */
 
+.c-header .c-nav {
+  @include mq(bp1, max) {
+    display: none;
+  }
+}
+
 .c-nav__list {
   display: flex;
   gap: $space-l;
   align-items: center;
+  margin-bottom: 0;
 }
 
 .c-nav__link:any-link {
@@ -602,6 +630,8 @@ a:active {
 
 /*
     Components: Author
+    ---
+    The author component is used to display the author of an application
 */
 
 .c-author {
@@ -656,6 +686,21 @@ a:active {
 }
 
 /*
+    Components: Links
+    ---
+    Special reusable link classes
+*/
+
+.c-link-bold {
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/*
     Components: Button group
     ---
     The button group component is used to display a group of buttons
@@ -664,6 +709,134 @@ a:active {
 .c-button-group {
   display: flex;
   gap: $space-s;
+}
+
+/*
+    Components: Card
+    ---
+    The card component is used to display a card
+*/
+
+.c-card {
+  border-radius: $radius-l;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: $space-m;
+}
+
+.c-card__body {
+  padding: $space-m $space-m 0;
+  display: flow-root;
+
+  & + & {
+    border-top: 1px solid $color-border-light;
+  }
+}
+
+/*
+    Components: Attachments
+    ---
+    The attachments component is used to display a list of attachments
+*/
+
+.c-attachments {
+  border: 1px solid $color-border-light;
+  border-radius: $radius-m;
+}
+
+.c-attachments__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-xs $space-s;
+
+  & + & {
+    border-top: 1px solid $color-border-light;
+  }
+}
+
+.c-attachments__download {
+  // margin-left: auto;
+}
+
+.c-attachments__icon {
+  fill: $oc-gray-5;
+  rotate: 45deg;
+  flex-shrink: 0;
+}
+
+.c-attachments__file {
+  display: flex;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.c-attachments__file-name {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+/*
+    Components: Timeline
+    ---
+    The timeline component is used to display a list of timeline items
+*/
+
+.c-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 2px;
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: calc($baseline * 3 - 1px);
+    background-color: $color-border-light;
+  }
+}
+
+.c-timeline__item {
+  display: flex;
+  gap: $space-m;
+  align-items: start;
+  position: relative;
+}
+
+.c-timeline__icon {
+  width: calc($baseline * 6);
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  background-color: $oc-gray-1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-light;
+  border: 2px solid white;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.c-timeline__icon--advanced {
+  background-color: $color-primary-lightest;
+  color: $color-primary-dark;
+}
+
+.c-timeline__icon--complete {
+  background-color: $color-succes-lightest;
+  color: $color-succes-darkest;
+}
+
+.c-timeline__action {
+  margin-bottom: 0;
 }
 
 /*
@@ -685,7 +858,7 @@ a:active {
     Utility classes to set the color of an element
 */
 
-.u-color-meta {
+.u-color-text-lighter {
   color: $color-text-lighter;
 }
 
@@ -721,12 +894,28 @@ a:active {
   margin-bottom: 0;
 }
 
-.u-mb-s {
-  margin-bottom: $space-s;
+.u-mb-xxs {
+  margin-bottom: $space-xxs;
 }
 
 .u-mb-xs {
   margin-bottom: $space-xs;
+}
+
+.u-mb-s {
+  margin-bottom: $space-s;
+}
+
+.u-mb-m {
+  margin-bottom: $space-m;
+}
+
+.u-mb-l {
+  margin-bottom: $space-l;
+}
+
+.u-mb-xl {
+  margin-bottom: $space-xl;
 }
 
 /*

@@ -334,6 +334,7 @@ a:active {
 */
 
 .o-button-reset {
+  display: inline-block;
   border: none;
   margin: 0;
   padding: 0;
@@ -363,12 +364,8 @@ a:active {
 */
 
 .o-row {
-  padding: $space-m $space-s 0;
+  padding: $space-m $space-m 0;
   display: flow-root;
-
-  @include mq(bp2) {
-    padding: $space-m $space-l 0;
-  }
 }
 
 .o-row--primary {
@@ -547,6 +544,21 @@ a:active {
 \*------------------------------------*/
 
 /*
+  Components: icon buttons
+  ---
+  The icon button component is used to display a button with an icon
+*/
+
+.c-icon-button {
+  display: flex;
+  align-items: center;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+/*
   Components: Logo
   ---
   The logo component is used to display the logo of the site
@@ -581,13 +593,37 @@ a:active {
 .c-header {
   display: flex;
   align-items: center;
-  gap: $space-l;
+  gap: $space-m;
+
+  @include mq(bp1, max) {
+    justify-content: space-between;
+  }
 }
 
 .c-header__user {
-  margin-left: auto;
   height: calc($baseline * 4);
   border-radius: 100%;
+
+  @include mq(bp1) {
+    margin-left: auto;
+  }
+}
+
+.c-header__menu-button {
+  color: white;
+
+  @include mq(bp1) {
+    display: none;
+  }
+}
+
+/*
+  Components: Main
+*/
+
+.c-main {
+  position: relative;
+  z-index: -1;
 }
 
 /*
@@ -596,17 +632,34 @@ a:active {
   The nav component is used to display the navigation of the site
 */
 
-.c-header .c-nav {
+.c-nav--header {
   @include mq(bp1, max) {
     display: none;
   }
 }
 
-.c-nav__list {
-  display: flex;
-  gap: $space-l;
-  align-items: center;
+.c-nav__title {
+  font-size: 1rem;
+  color: currentColor;
   margin-bottom: 0;
+}
+
+.c-nav__header {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+  justify-content: space-between;
+  margin-bottom: $space-m;
+}
+
+.c-nav__list {
+  margin-bottom: 0;
+
+  .c-nav--header & {
+    display: flex;
+    gap: $space-l;
+    align-items: center;
+  }
 }
 
 .c-nav__link:any-link {
@@ -620,6 +673,10 @@ a:active {
     color: $oc-indigo-0;
     background-color: $oc-indigo-9;
     // padding: $space-xxs $space-xs;
+    padding: $space-xxs $space-s;
+  }
+
+  .c-nav--mobile & {
     padding: $space-xxs $space-s;
   }
 }
@@ -757,10 +814,6 @@ a:active {
   }
 }
 
-.c-attachments__download {
-  // margin-left: auto;
-}
-
 .c-attachments__icon {
   fill: $oc-gray-5;
   rotate: 45deg;
@@ -840,12 +893,70 @@ a:active {
 }
 
 /*
-    Scope: Content
-    Specific behaviour inside s-content class
+  Components: mobile nav
+  ---
+  The mobile nav component is used to display the mobile navigation
 */
 
-.s-content * + h2 {
-  margin-top: $space-xl;
+.c-mobile-nav {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  padding-right: $space-m;
+
+  // @include mq(bp1) {
+  //   display: none;
+  // }
+}
+
+.c-mobile-nav__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.c-mobile-nav__body {
+  position: relative;
+  background-color: $color-primary-dark;
+  color: white;
+  padding: $space-m;
+  height: 100%;
+  // opacity: 0;
+  translate: -100% 0;
+  transition: all 0.2s ease;
+}
+
+/*
+  State: has-mobile-nav
+  ---
+  The has-mobile-nav state is to show the mobile nav and to prevent the body from scrolling when the mobile nav is open
+*/
+
+.has-mobile-nav {
+  overflow: hidden;
+
+  .c-mobile-nav {
+    pointer-events: auto;
+  }
+
+  .c-mobile-nav__overlay {
+    opacity: 0.25;
+  }
+
+  .c-mobile-nav__body {
+    // opacity: 1;
+    translate: 0 0;
+  }
 }
 
 /*---------------------------------------/*

@@ -197,6 +197,7 @@ a:active {
     Small button reset object
 */
 .o-button-reset {
+  display: inline-block;
   border: none;
   margin: 0;
   padding: 0;
@@ -221,13 +222,8 @@ a:active {
     Creates a horizontal row with padding
 */
 .o-row {
-  padding: 1.7142857143rem 1.1428571429rem 0;
+  padding: 1.7142857143rem 1.7142857143rem 0;
   display: flow-root;
-}
-@media (min-width: 48.0625em) {
-  .o-row {
-    padding: 1.7142857143rem 2.2857142857rem 0;
-  }
 }
 
 .o-row--primary {
@@ -397,6 +393,19 @@ a:active {
   #COMPONENTS
 \*------------------------------------*/
 /*
+  Components: icon buttons
+  ---
+  The icon button component is used to display a button with an icon
+*/
+.c-icon-button {
+  display: flex;
+  align-items: center;
+}
+.c-icon-button svg {
+  fill: currentColor;
+}
+
+/*
   Components: Logo
   ---
   The logo component is used to display the logo of the site
@@ -428,13 +437,39 @@ a:active {
 .c-header {
   display: flex;
   align-items: center;
-  gap: 2.2857142857rem;
+  gap: 1.7142857143rem;
+}
+@media (max-width: 36.0625em) {
+  .c-header {
+    justify-content: space-between;
+  }
 }
 
 .c-header__user {
-  margin-left: auto;
   height: 2.2857142857rem;
   border-radius: 100%;
+}
+@media (min-width: 36.0625em) {
+  .c-header__user {
+    margin-left: auto;
+  }
+}
+
+.c-header__menu-button {
+  color: white;
+}
+@media (min-width: 36.0625em) {
+  .c-header__menu-button {
+    display: none;
+  }
+}
+
+/*
+  Components: Main
+*/
+.c-main {
+  position: relative;
+  z-index: -1;
 }
 
 /*
@@ -443,16 +478,32 @@ a:active {
   The nav component is used to display the navigation of the site
 */
 @media (max-width: 36.0625em) {
-  .c-header .c-nav {
+  .c-nav--header {
     display: none;
   }
 }
 
+.c-nav__title {
+  font-size: 1rem;
+  color: currentColor;
+  margin-bottom: 0;
+}
+
+.c-nav__header {
+  display: flex;
+  align-items: center;
+  gap: 1.7142857143rem;
+  justify-content: space-between;
+  margin-bottom: 1.7142857143rem;
+}
+
 .c-nav__list {
+  margin-bottom: 0;
+}
+.c-nav--header .c-nav__list {
   display: flex;
   gap: 2.2857142857rem;
   align-items: center;
-  margin-bottom: 0;
 }
 
 .c-nav__link:-moz-any-link {
@@ -478,6 +529,12 @@ a:active {
 .c-nav__item--active .c-nav__link:any-link {
   color: #edf2ff;
   background-color: #364fc7;
+  padding: 0.5714285714rem 1.1428571429rem;
+}
+.c-nav--mobile .c-nav__link:-moz-any-link {
+  padding: 0.5714285714rem 1.1428571429rem;
+}
+.c-nav--mobile .c-nav__link:any-link {
   padding: 0.5714285714rem 1.1428571429rem;
 }
 
@@ -705,11 +762,59 @@ a:active {
 }
 
 /*
-    Scope: Content
-    Specific behaviour inside s-content class
+  Components: mobile nav
+  ---
+  The mobile nav component is used to display the mobile navigation
 */
-.s-content * + h2 {
-  margin-top: 3.4285714286rem;
+.c-mobile-nav {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  padding-right: 1.7142857143rem;
+}
+
+.c-mobile-nav__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.c-mobile-nav__body {
+  position: relative;
+  background-color: #4263eb;
+  color: white;
+  padding: 1.7142857143rem;
+  height: 100%;
+  translate: -100% 0;
+  transition: all 0.2s ease;
+}
+
+/*
+  State: has-mobile-nav
+  ---
+  The has-mobile-nav state is to show the mobile nav and to prevent the body from scrolling when the mobile nav is open
+*/
+.has-mobile-nav {
+  overflow: hidden;
+}
+.has-mobile-nav .c-mobile-nav {
+  pointer-events: auto;
+}
+.has-mobile-nav .c-mobile-nav__overlay {
+  opacity: 0.25;
+}
+.has-mobile-nav .c-mobile-nav__body {
+  translate: 0 0;
 }
 
 /*---------------------------------------/*

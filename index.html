@@ -19,6 +19,11 @@
 <body>
     <header class="o-row o-row--primary o-row--xs o-row--header">
         <div class="c-header">
+            <button class="o-button-reset c-header__menu-button c-icon-button js-toggle-menu">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24">
+                    <path d="M120 816v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </button>
             <h2 class="c-logo">
                 <a class="c-logo__link" href="index.html">
                     <svg class="c-logo__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.768 32">
@@ -27,16 +32,14 @@
                     </svg>
                 </a>
             </h2>
-            <nav class="c-nav">
+            <nav class="c-nav c-nav--header">
                 <ul class="o-list-reset c-nav__list">
                     <li class="c-nav__item c-nav__item--active">
                         <a class="c-nav__link" href="index.html">Dashboards</a>
                     </li>
-                    <!-- niet goed -->
                     <li class="c-nav__item">
                         <a class="c-nav__link" href="#!">Jobs</a>
                     </li>
-                    <!-- wel goed -->
                     <li class="c-nav__item">
                         <a class="c-nav__link" href="#!">Applicants</a>
                     </li>
@@ -48,7 +51,7 @@
             <img class="c-header__user" src="img/avatar.jpg" alt="Avatar of the user">
         </div>
     </header>
-    <main>
+    <main class="c-main">
         <section class="o-row o-row--l">
             <div class="o-container">
                 <div class="o-layout o-layout--gutter o-layout--justify-space-between o-layout--align-center">
@@ -127,6 +130,9 @@
                                     <li class="c-attachments__item">
                                         <span class="c-attachments__file">
                                             <svg class="c-attachments__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24">
+                                                <path d="M460 976q-92 0-156-64t-64-156V336q0-66 47-113t113-47q66 0 113 47t47 113v380q0 42-29 71t-71 29q-42 0-71-29t-29-71V336h60v380q0 17 11.5 28.5T460 756q17 0 28.5-11.5T500 716V336q0-42-29-71t-71-29q-42 0-71 29t-29 71v420q0 66 47 113t113 47q66 0 113-47t47-113V336h60v420q0 92-64 156t-156 64Z" />
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24">
                                                 <path d="M460 976q-92 0-156-64t-64-156V336q0-66 47-113t113-47q66 0 113 47t47 113v380q0 42-29 71t-71 29q-42 0-71-29t-29-71V336h60v380q0 17 11.5 28.5T460 756q17 0 28.5-11.5T500 716V336q0-42-29-71t-71-29q-42 0-71 29t-29 71v420q0 66 47 113t113 47q66 0 113-47t47-113V336h60v420q0 92-64 156t-156 64Z" />
                                             </svg>
                                             <span class="c-attachments__file-name">Resume_front_end_developer.pdf</span>
@@ -218,6 +224,47 @@
             </div>
         </div>
     </main>
+    <div class="c-mobile-nav">
+        <div class="c-mobile-nav__overlay"></div>
+        <div class="c-mobile-nav__body">
+            <nav class="c-nav c-nav--mobile">
+                <header class="c-nav__header">
+                    <h2 class="c-nav__title">
+                        Navigation
+                    </h2>
+                    <button class="o-button-reset c-icon-button js-toggle-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24">
+                            <path d="m256 856-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                        </svg>
+                    </button>
+                </header>
+                <ul class="o-list-reset c-nav__list">
+                    <li class="c-nav__item c-nav__item--active">
+                        <a class="c-nav__link" href="index.html">Dashboards</a>
+                    </li>
+                    <!-- niet goed -->
+                    <li class="c-nav__item">
+                        <a class="c-nav__link" href="#!">Jobs</a>
+                    </li>
+                    <!-- wel goed -->
+                    <li class="c-nav__item">
+                        <a class="c-nav__link" href="#!">Applicants</a>
+                    </li>
+                    <li class="c-nav__item">
+                        <a class="c-nav__link" href="#!">Company</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script>
+        // toggle a class on the body to show/hide the mobile menu when every js-toggle-menu is clicked
+        document.querySelectorAll('.js-toggle-menu').forEach(function (el) {
+            el.addEventListener('click', function () {
+                document.body.classList.toggle('has-mobile-nav');
+            });
+        });
+    </script>
 </body>
 
 </html>
